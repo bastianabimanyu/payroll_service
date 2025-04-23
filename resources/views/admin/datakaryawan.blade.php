@@ -1,0 +1,113 @@
+<x-app-layout>
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6 text-center">Manajemen Karyawan</h1>
+
+        <!-- Form Tambah Karyawan -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-10">
+            <form action="{{ route('datakaryawan.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                @csrf
+                <div>
+                    <label class="block text-sm font-medium">Nama</label>
+                    <input type="text" name="nama" class="mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">NIK</label>
+                    <input type="text" name="nik" class="mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Email</label>
+                    <input type="email" name="email" class="mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">No HP</label>
+                    <input type="text" name="no_hp" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Alamat</label>
+                    <input type="text" name="alamat" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Jabatan</label>
+                    <input type="text" name="jabatan" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Tanggal Masuk</label>
+                    <input type="date" name="tanggal_masuk" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Gaji Pokok</label>
+                    <input type="number" name="gaji_pokok" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Status</label>
+                    <select name="status" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                        <option value="aktif">Aktif</option>
+                        <option value="tidak aktif">Tidak Aktif</option>
+                    </select>
+                </div>
+                <div class="md:col-span-2">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
+                        Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tabel Data Karyawan -->
+        <div class="bg-white shadow-md rounded-lg overflow-x-auto">
+            <h1 class="text-3xl font-bold mb-6 text-center">Data Karyawan</h1>
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">#</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Nama</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">NIK</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Email</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">No HP</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Alamat</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Jabatan</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Tgl Masuk</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Gaji Pokok</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Status</th>
+                        <th class="px-6 py-3 text-left font-medium text-gray-700">Action</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @foreach ($karyawan as $karyawans)
+                        <tr>
+                            <td class="px-6 py-4">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4 font-medium">{{ $karyawans->nama }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->nik }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->email }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->no_hp }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->alamat }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->jabatan }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->tanggal_masuk }}</td>
+                            <td class="px-6 py-4">{{ $karyawans->gaji_pokok }}</td>
+                            <td class="px-6 py-4">
+                                <span class="{{ $karyawans->status == 'aktif' ? 'bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full' : 'bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap' }}">
+                                    {{ $karyawans->status }}
+                                </span>                                
+                            </td>
+                            <td class="px-6 py-4">
+                                <form action="{{ route('datakaryawan.destroy', $karyawans->id) }}" method="post" class="flex space-x-2">
+                                    <a href="{{ route('datakaryawan.edit', $karyawans->id) }}"
+                                       class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm transition">
+                                        Edit
+                                    </a>
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit"
+                                            onclick="return confirm('Yakin ingin menghapus data ini?')"
+                                            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg text-sm transition">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</x-app-layout>
