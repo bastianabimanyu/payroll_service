@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('username');       // Nama user yang presensi
             $table->date('tanggal');          // Tanggal presensi
             $table->time('jam_masuk')->nullable();   // Waktu masuk
-            $table->time('jam_keluar')->nullable();  // Waktu keluar (opsional)
+            $table->time('jam_keluar')->nullable();  // Waktu keluar
             $table->timestamps();
         });
     }

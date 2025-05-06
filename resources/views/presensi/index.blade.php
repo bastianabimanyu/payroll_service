@@ -30,8 +30,8 @@
                     Presensi Keluar
                 </button>
             </form>
-        </div>
-    
+        </div>     
+                                       
         <h3 class="text-xl font-semibold mb-2">Riwayat Presensi</h3>
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">

@@ -12,4 +12,13 @@ class UserloginController extends Controller
         $users = User::latest()->get();
         return view("admin.userlogin", compact('users'));
     }
+
+    public function destroy(string $id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('admin.userlogin')->with('success', 'Data gaji berhasil dihapus.');
+    }
+
 }

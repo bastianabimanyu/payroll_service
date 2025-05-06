@@ -36,6 +36,10 @@
                             @csrf
                             <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">No</button>
                         </form>
+                        <form action="{{ route('hapus', $pengajuans->id) }}" method="POST" class="inline">
+                            @csrf
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Hapus</button>
+                        </form>
                     </td>
                 </tr>
                 @empty

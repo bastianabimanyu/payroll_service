@@ -34,7 +34,7 @@ class PresensiController extends Controller
         Presensi::create([
             'username' => Auth::user()->name,
             'tanggal' => date('Y-m-d'),
-            'jam_masuk' => now()->format('H:i:s'),
+            'jam_masuk' => now()->setTimezone('Asia/Jakarta')->format('H:i:s'),
         ]);
 
         return back()->with('success', 'Presensi berhasil!');
@@ -55,9 +55,18 @@ class PresensiController extends Controller
     }
 
     $presensi->update([
-        'jam_keluar' => now()->format('H:i:s'),
+        'jam_keluar' => now()->setTimezone('Asia/Jakarta')->format('H:i:s'),
     ]);
 
     return back()->with('success', 'Presensi keluar berhasil!');
 }
+
+public function destroy(string $id)
+    {
+        $deletedata = Presensi::findOrFail($id);
+
+        $deletedata->delete();
+
+        return redirect()->route('admin.presensi')->with('success', 'Data Berhasil Dihapus');
+    }
 }

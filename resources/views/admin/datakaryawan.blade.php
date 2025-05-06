@@ -8,35 +8,83 @@
                 @csrf
                 <div>
                     <label class="block text-sm font-medium">Nama</label>
-                    <input type="text" name="nama" class="mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                    <input type="text" name="nama" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('nama')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">NIK</label>
-                    <input type="text" name="nik" class="mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                    <input type="text" name="nik" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('nik')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">Email</label>
-                    <input type="email" name="email" class="mt-1 w-full border-gray-300 rounded-md shadow-sm" required>
+                    <input type="email" name="email" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('email')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">No HP</label>
                     <input type="text" name="no_hp" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('no_hp')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">Alamat</label>
                     <input type="text" name="alamat" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('alamat')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">Jabatan</label>
                     <input type="text" name="jabatan" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('jabatan')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">Tanggal Masuk</label>
                     <input type="date" name="tanggal_masuk" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('tanggal_masuk')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">Gaji Pokok</label>
                     <input type="number" name="gaji_pokok" class="mt-1 w-full border-gray-300 rounded-md shadow-sm">
+
+                    @error('gaji_pokok')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div>
                     <label class="block text-sm font-medium">Status</label>
@@ -44,6 +92,12 @@
                         <option value="aktif">Aktif</option>
                         <option value="tidak aktif">Tidak Aktif</option>
                     </select>
+
+                    @error('status')
+                        <div class="mt-2 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                            {{ $message }}
+                        </div>
+                    @enderror
                 </div>
                 <div class="md:col-span-2">
                     <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition">
@@ -110,4 +164,21 @@
             </table>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        @if (session('success'))
+            Swal.fire({
+                icon: "success",
+                title: "Berhasil",
+                text: "{{ session('success') }}",
+            });
+        @elseif (session('error'))
+            Swal.fire({
+                icon: "error",
+                title: "Gagal!!",
+                text: "{{ session('error') }}",
+            });
+        @endif
+    </script>
 </x-app-layout>

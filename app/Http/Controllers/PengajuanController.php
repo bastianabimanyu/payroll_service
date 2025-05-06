@@ -59,4 +59,12 @@ class PengajuanController extends Controller
         return redirect()->back()->with('success', 'Pengajuan ditolak.');
     }
 
+    public function destroy(string $id)
+    {
+        $deletedata = Pengajuan::findOrFail($id);
+
+        $deletedata->delete();
+
+        return redirect()->route('frondpengajuan')->with('success', 'Data Berhasil Dihapus');
+    }
 }

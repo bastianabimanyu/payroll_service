@@ -52,7 +52,7 @@
                             {{ __('Pengajuan') }}
                         </x-nav-link>
 
-                        <x-nav-link href="profilsaya" :active="request()->routeIs('user.profilsaya')">
+                        <x-nav-link href="{{ route('profileindex') }}" :active="request()->routeIs('user.profilsaya')">
                             {{ __('Profil Saya') }}
                         </x-nav-link>
                     @endif

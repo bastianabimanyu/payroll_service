@@ -1,6 +1,6 @@
 <x-app-layout>
     <div class="max-w-6xl mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-4">Data Presensi Seluruh Karyawan</h2>
+        <h2 class="text-2xl font-bold mb-4 text-center">Data Presensi Seluruh Karyawan</h2>
 
         {{-- Tabel Presensi --}}
         <div class="overflow-x-auto">
@@ -11,6 +11,7 @@
                         <th class="px-4 py-2">Tanggal</th>
                         <th class="px-4 py-2">Jam Masuk</th>
                         <th class="px-4 py-2">Jam Keluar</th>
+                        <th class="px-4 py-2">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -20,6 +21,13 @@
                             <td class="px-4 py-2">{{ $presensi->tanggal }}</td>
                             <td class="px-4 py-2">{{ $presensi->jam_masuk }}</td>
                             <td class="px-4 py-2">{{ $presensi->jam_keluar ?? '-' }}</td>
+                            <td class="px-4 py-2">
+                                <form action="{{ route('admin.presensihapus', $presensi->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data absensi ini?');">
+                                    @csrf
+                                    @method('delete')
+                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Hapus</button>
+                                </form>
+                            </td>
                         </tr>
                     @empty
                         <tr>
